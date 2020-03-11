@@ -12,9 +12,32 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        
+
         <GridSplitter Width="4" ShowsPreview="True" HorizontalAlignment="Center" Grid.ColumnSpan="2" />
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding ElementName=en, Path =Text}" VerticalAlignment="Top" Height="418" Width="194" x:Name="EnWord" />
-        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="419" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="194"/>
+        <ListBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="213" Width="194" x:Name="EnWordTB">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding IdWords}"></TextBlock>
+                        <TextBox SelectionChanged="TextBox_SelectionChanged" Width="150" BorderThickness="0" Text="{Binding ENWord}"></TextBox>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox Grid.Column="1"  HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="121" x:Name="RuWordTB" Margin="73,0,0,0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding IdWords}"></TextBlock>
+                        <TextBlock Text="{Binding RUWord}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button HorizontalAlignment="Left" Margin="18,370,0,0" VerticalAlignment="Top" Width="75" Content="Refresh" x:Name="Restart" Click="Restart_Click"/>
+        <Button Content="End" HorizontalAlignment="Left" Margin="115,313,0,0" VerticalAlignment="Top" Width="75" x:Name="End"  Click="End_Click"/>
+
+
     </Grid>
 </Window>
