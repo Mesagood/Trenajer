@@ -22,22 +22,27 @@ namespace Trenajer
     public partial class MainWindow : Window
     {
         TrenajerEntities db = new TrenajerEntities();
+
         string[] enword = new string[25];
         string[] ruword = new string[25];
+
         List<int> notsame = new List<int>();
-        List<Word> rusWords = new List<Word>();
-        List<Word> engWords = new List<Word>();
-        int countotv = 0;
-        int countobsh = 10;
+        List<Word> RusWords = new List<Word>();
+        List<Word> EngWords = new List<Word>();
+
+        double CountAll = 0;
+
+        int index = 0;
+
         public MainWindow()
         {
             InitializeComponent();
             Fulling();
         }
+        
         public string Fulling()
         {
             Random rnd = new Random();
-
 
             //Выгрузка слов
 
@@ -81,10 +86,12 @@ namespace Trenajer
             //Вывод на экран англ
             for (int i = 0; i < 10; i++)
             {
-                //EnWordTB.Text += i + 1 + " " + enword[a[i]];
-                engWords.Add(new Word { IdWords = i + 1, ENWord = enword[a[i]] });
-                EnWordTB.ItemsSource = engWords.ToList();
+                EngWords.Add(new Word { IdWords = i + 1, ENWord = enword[a[i]] });
+                EnWordTB.ItemsSource = EngWords.ToList();
             }
+            
+            EnWordTB.SelectedIndex = index;
+
 
             //перемешивание перводов
             for (int i = a.Length - 1; i >= 1; i--)
@@ -98,49 +105,72 @@ namespace Trenajer
 
             //вывод на экран переводы
             for (int i = 0; i < 10; i++)
-            {
-                //RuWordTB.Text += i + 1 + "  " + ruword[a[i]];
-                rusWords.Add(new Word { IdWords = i + 1, RUWord = ruword[a[i]] });
-                RuWordTB.ItemsSource = rusWords.ToList();
+            {             
+                RusWords.Add(new Word { IdWords = i + 1, RUWord = ruword[a[i]] });
+                RuWordTB.ItemsSource = RusWords.ToList();
             }
             return "0";
         }
-
-        private void Restart_Click(object sender, RoutedEventArgs e)
+           
+        private void BTNChek_Click(object sender, RoutedEventArgs e)
         {
-            rusWords.Clear();
-            engWords.Clear();
-            Fulling();
-            countobsh += 10;
-        }
 
-        private void TextBox_SelectionChanged(object sender, RoutedEventArgs e)
-        {
-            Word word = (sender as TextBox).DataContext as Word; //как в бд
-            String textWord = (sender as TextBox).Text as String; // как на самом деле
-            string trimText = textWord.Trim().Substring(textWord.Length - 1);
+          
+            Word word = EnWordTB.SelectedItem as Word;
             int id;
-            bool isNum = int.TryParse(trimText, out id);
-            if (isNum)
+            bool IsNum = int.TryParse(ChekTB.Text, out id);
+            
+            bool error_ = true;
+
+            if (IsNum)
             {
-                foreach (var item in rusWords)
+                CountAll++;
+                foreach (var item in RusWords)
                 {
                     if (word.GetWord == item.RUWord && item.IdWords == id)
-                    {
-                        MessageBox.Show("Молодец, ты отгадал это слово!");
-                        countotv++;
+                    {                        
+                        EnWordTB.SelectedIndex = index;
+                        EnWordTB.SelectedIndex++;
+                        index++;
+                        error_ = false;
+                        ChekTB.Clear();
+                        ErrorLab.Visibility = System.Windows.Visibility.Hidden;
                     }
+                }
 
+                if (error_)
+                {
+                    ErrorLab.Visibility = System.Windows.Visibility.Visible;
+                    ChekTB.Clear();
+                }
+
+                ChekTB.Focus();
+
+                if (index == 10)
+                {
+                    MessageBoxResult dialogResult = MessageBox.Show("Продолжить?", "Все слова отгаданны", MessageBoxButton.YesNo);
+                    if (dialogResult == MessageBoxResult.Yes)
+                    {
+                        RusWords.Clear();
+                        EngWords.Clear();
+                        Fulling();                        
+                    }
+                    else
+                    {
+                        double CountProc = 1000 / CountAll;
+                        MessageBox.Show("% Правильных ответов: " + Math.Round(CountProc));
+                        Environment.Exit(0);
+                    }
                 }
             }
         }
 
-        private void End_Click(object sender, RoutedEventArgs e)
+        private void ChekTB_KeyDown(object sender, KeyEventArgs e)
         {
-            //НЕ РАБОТАЕТ
-            int a = countotv / countobsh * 100;
-            MessageBox.Show("% Правильных ответов: " + countotv+"," + countobsh+"," + a);
-
+            if (e.Key == Key.Enter)
+            {
+                BTNChek_Click(sender,e);
+            }
         }
     }
 }

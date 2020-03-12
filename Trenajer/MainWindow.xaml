@@ -14,17 +14,18 @@
         </Grid.ColumnDefinitions>
 
         <GridSplitter Width="4" ShowsPreview="True" HorizontalAlignment="Center" Grid.ColumnSpan="2" />
-        <ListBox HorizontalAlignment="Left" VerticalAlignment="Top" Height="213" Width="194" x:Name="EnWordTB">
+
+        <ListBox SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="213" Width="194" x:Name="EnWordTB" IsHitTestVisible="False">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding IdWords}"></TextBlock>
-                        <TextBox SelectionChanged="TextBox_SelectionChanged" Width="150" BorderThickness="0" Text="{Binding ENWord}"></TextBox>
+                        <TextBlock Text="{Binding ENWord}"></TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ListBox Grid.Column="1"  HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="121" x:Name="RuWordTB" Margin="73,0,0,0">
+        <ListBox Grid.Column="1"  HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="192" x:Name="RuWordTB" Margin="2,0,0,0" IsHitTestVisible="False">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -35,8 +36,11 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button HorizontalAlignment="Left" Margin="18,370,0,0" VerticalAlignment="Top" Width="75" Content="Refresh" x:Name="Restart" Click="Restart_Click"/>
-        <Button Content="End" HorizontalAlignment="Left" Margin="115,313,0,0" VerticalAlignment="Top" Width="75" x:Name="End"  Click="End_Click"/>
+
+        <Button Content="Chek" HorizontalAlignment="Left" Margin="111,257,0,130" Width="75" x:Name="BTNChek" Click="BTNChek_Click" />
+        <TextBox HorizontalAlignment="Left" Margin="5,257,0,125" TextWrapping="Wrap" Width="72" x:Name="ChekTB" KeyDown="ChekTB_KeyDown"/>
+        
+        <Label Content="Try again" HorizontalAlignment="Left" Margin="4,301,0,0" VerticalAlignment="Top" Width="177" Visibility="Hidden" x:Name="ErrorLab"/>
 
 
     </Grid>
