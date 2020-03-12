@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Trenajer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="400">
+        Icon="Icons/Ico.ico"
+        Title="Тренажер" Height="450" Width="400">
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -38,8 +39,8 @@
 
 
         <Button Content="Chek" HorizontalAlignment="Left" Margin="111,257,0,130" Width="75" x:Name="BTNChek" Click="BTNChek_Click" />
-        <TextBox HorizontalAlignment="Left" Margin="5,257,0,125" TextWrapping="Wrap" Width="72" x:Name="ChekTB" KeyDown="ChekTB_KeyDown"/>
-        
+        <TextBox HorizontalAlignment="Left" Margin="5,257,0,125" TextWrapping="Wrap" Width="72" x:Name="ChekTB"/>
+
         <Label Content="Try again" HorizontalAlignment="Left" Margin="4,301,0,0" VerticalAlignment="Top" Width="177" Visibility="Hidden" x:Name="ErrorLab"/>
 
 
