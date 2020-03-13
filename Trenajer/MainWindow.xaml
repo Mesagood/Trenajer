@@ -39,7 +39,7 @@
 
 
         <Button Content="Chek" HorizontalAlignment="Left" Margin="111,257,0,130" Width="75" x:Name="BTNChek" Click="BTNChek_Click" />
-        <TextBox HorizontalAlignment="Left" Margin="5,257,0,125" TextWrapping="Wrap" Width="72" x:Name="ChekTB"/>
+        <TextBox HorizontalAlignment="Left" Margin="5,257,0,125" TextWrapping="Wrap" Width="72" x:Name="ChekTB" KeyDown="ChekTB_KeyDown"/>
 
         <Label Content="Try again" HorizontalAlignment="Left" Margin="4,301,0,0" VerticalAlignment="Top" Width="177" Visibility="Hidden" x:Name="ErrorLab"/>
 

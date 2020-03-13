@@ -29,6 +29,8 @@ namespace Trenajer
         List<int> notsame = new List<int>();
         List<Word> RusWords = new List<Word>();
         List<Word> EngWords = new List<Word>();
+        double errors = 0;
+        double answ = 0;
 
         double CountAll = 0;
 
@@ -38,10 +40,12 @@ namespace Trenajer
         {
             InitializeComponent();
             Fulling();
+            ChekTB.Focus();
         }
         
         public string Fulling()
         {
+            index = 0;
             Random rnd = new Random();
 
             //Выгрузка слов
@@ -121,7 +125,7 @@ namespace Trenajer
             bool IsNum = int.TryParse(ChekTB.Text, out id);
             
             bool error_ = true;
-
+            
             if (IsNum)
             {
                 CountAll++;
@@ -132,6 +136,7 @@ namespace Trenajer
                         EnWordTB.SelectedIndex = index;
                         EnWordTB.SelectedIndex++;
                         index++;
+                        answ++;
                         error_ = false;
                         ChekTB.Clear();
                         ErrorLab.Visibility = System.Windows.Visibility.Hidden;
@@ -142,6 +147,7 @@ namespace Trenajer
                 {
                     ErrorLab.Visibility = System.Windows.Visibility.Visible;
                     ChekTB.Clear();
+                    errors++;
                 }
 
                 ChekTB.Focus();
@@ -157,7 +163,7 @@ namespace Trenajer
                     }
                     else
                     {
-                        double CountProc = 1000 / CountAll;
+                        double CountProc = answ / (answ + errors) * 100;
                         MessageBox.Show("% Правильных ответов: " + Math.Round(CountProc));
                         Environment.Exit(0);
                     }
