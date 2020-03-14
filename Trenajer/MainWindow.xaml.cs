@@ -116,7 +116,7 @@ namespace Trenajer
             return "0";
         }
            
-        private void BTNChek_Click(object sender, RoutedEventArgs e)
+        private void BTNCheck_Click(object sender, RoutedEventArgs e)
         {
 
           
@@ -171,11 +171,11 @@ namespace Trenajer
             }
         }
 
-        private void ChekTB_KeyDown(object sender, KeyEventArgs e)
+        private void CheckTB_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                BTNChek_Click(sender,e);
+                BTNCheck_Click(sender,e);
             }
         }
     }

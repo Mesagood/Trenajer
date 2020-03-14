@@ -1,6 +1,7 @@
 ﻿using System;
 using Trenajer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace TestTrenajer
 {
@@ -9,6 +10,7 @@ namespace TestTrenajer
     {
         Trenajer.Word worder = new Word();
         Trenajer.MainWindow page = new MainWindow();
+        Trenajer.TrenajerEntities db = new TrenajerEntities();
         
         [TestMethod]
         public void TestCorrectReturnValueFunc() //Проверка правильности возвращаемого типа 
@@ -60,6 +62,36 @@ namespace TestTrenajer
             string NotSameRandom = page.Fulling() + "asbastqwedsa";
             Assert.AreEqual(TestCatch, page.Fulling());
             Assert.AreNotEqual(NotSameRandom, page.Fulling());
+        }
+        [TestMethod]
+        public void CheckCount()
+        {
+            Assert.AreEqual(db.Words.Count(), 25);
+        }
+        [TestMethod]
+        public void CheckNotCount()
+        {
+            Assert.AreNotEqual(db.Words.Count(), 26);
+        }
+        [TestMethod]
+        public void CheckEntity()
+        {
+            Assert.IsNotNull(db.Words);
+        }
+        [TestMethod]
+        public void CheckConncection()
+        {
+            Assert.IsNotNull(OnConnection(@"Data Source=DESKTOP-57848NR;Initial Catalog=Trenajer;Integrated Security=True"));           
+        }
+        public bool OnConnection(string connection)
+        {
+            bool result = true;
+            if (!string.IsNullOrEmpty(connection))
+            {
+                result = true;
+            }
+            else result = false;
+            return result;
         }
     }
 }
